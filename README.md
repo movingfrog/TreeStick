@@ -1,1 +1,1 @@
-# TreeStick
+# Project Stick
