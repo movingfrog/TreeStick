@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IEnemyDamage
 {
-    public int Hp;
-    public int attackAmount;
+    public int Hp = 100;
+    public int attackAmount = 10;
     public enum EnemyKind
     {
         Normal = 0,
