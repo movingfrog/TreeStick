@@ -1,35 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float Speed;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float JumpPower = 10f;
+    private float moveInput; // 왼쪽/오른쪽 입력만
 
-    Rigidbody2D rigid;
-    Vector2 moveDirection;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    // Input System에서 자동 호출
+    public void OnMove(InputAction.CallbackContext context)
     {
-        bool isControl = (moveDirection != Vector2.zero);
-
-        if (isControl)
-        {
-            rigid.velocity += moveDirection * Speed;
-        }
-        else
-        {
-            rigid.velocity = Vector2.up * rigid.velocity.y;
-        }
+        moveInput = context.ReadValue<float>();
     }
 
-    void OnMove()
+    public void OnJump()
     {
+        rb.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+    }
 
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
 }
