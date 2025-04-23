@@ -17,7 +17,7 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "eefbd42d-7746-439b-8667-85e813e6e876",
+                    "id": "73e80721-98e2-4b18-b6e0-0468f1470b1a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -60,7 +60,7 @@
                 },
                 {
                     "name": "",
-                    "id": "c4dcf31b-4d1f-46a4-9f59-e775c3e88e0a",
+                    "id": "3f1e27b3-96b1-4146-a70f-a3a7f028d727",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",

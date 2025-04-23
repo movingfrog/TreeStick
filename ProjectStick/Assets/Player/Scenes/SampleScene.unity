@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 358013210}
   - component: {fileID: 358013209}
   - component: {fileID: 358013208}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: w
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,9 +486,9 @@ GameObject:
   - component: {fileID: 1902527587}
   - component: {fileID: 1902527591}
   - component: {fileID: 1902527592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BackupPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -506,9 +506,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -635,7 +635,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  JumpPower: 10
+  JumpPower: 5
+  Distance: 0.01
+  Direction: {x: 0, y: -0.45}
+  layer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1902527592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,7 +696,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: eefbd42d-7746-439b-8667-85e813e6e876
+    m_ActionId: 73e80721-98e2-4b18-b6e0-0468f1470b1a
     m_ActionName: Player/Jump[/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
