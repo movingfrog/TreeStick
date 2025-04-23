@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float JumpPower = 10f;
-    [SerializeField] private float Distance;
-    [SerializeField] private Vector2 Direction;
+    [SerializeField] private float Distance = 0.01f;
+    [SerializeField] private Vector2 Direction = new Vector2(0,-0.45f);
     [SerializeField] private LayerMask layer;
     private float moveInput; // 왼쪽/오른쪽 입력만
     private bool isGround;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump()
     {
-        if(isGround)
+        if(isGround && Input.anyKeyDown)
         {
             rb.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
         }
