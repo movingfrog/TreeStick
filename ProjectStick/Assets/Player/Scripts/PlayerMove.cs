@@ -5,7 +5,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float JumpPower = 10f;
+    [SerializeField] private float Distance = 0.01f;
+    [SerializeField] private Vector2 Direction = new Vector2(0,-0.45f);
+    [SerializeField] private LayerMask layer;
     private float moveInput; // 왼쪽/오른쪽 입력만
+    private bool isGround;
 
     private Rigidbody2D rb;
 
@@ -22,11 +26,22 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump()
     {
-        rb.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+        if(isGround && Input.anyKeyDown)
+        {
+            rb.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+        }
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        RaycastHit2D hit = Physics2D.Raycast(rb.position + Direction, Vector2.down * Distance, Distance, layer);
+        isGround = hit.collider != null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(transform.position + (Vector3)Direction, Vector2.down * Distance);
     }
 }
