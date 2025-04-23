@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIEnemy : Enemy
+public abstract class AIEnemy : Enemy
 {
     public int moveSpeed = 5;
     public float noticeRange = 10;
@@ -23,6 +23,9 @@ public class AIEnemy : Enemy
 
     protected bool IsRayCasting(Vector2 center, Vector2 direction, float range, LayerMask layer)
     {
-        return Physics2D.Raycast(center, direction, range, layer);
+        return Physics2D.Raycast(center, direction, range, layer).collider != null;
     }
+
+    protected abstract void Attack();
+    protected abstract void Jump();
 }
