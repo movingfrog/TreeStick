@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ThrowEnemy : AIEnemy
@@ -11,6 +10,7 @@ public class ThrowEnemy : AIEnemy
     bool canJump = false;
     [SerializeField] float attackSpeedSeconds = 1.5f;
     [SerializeField] float jumpForce = 10f;
+    [SerializeField] float throwAngle = 30;
     float Distance
     {
         get
@@ -27,9 +27,25 @@ public class ThrowEnemy : AIEnemy
         }
     }
 
+    Vector2 DistanceEach
+    {
+        get
+        {
+            return target.position - transform.position;
+        }
+    }
+
+    private float originalAngle;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        originalAngle = throwAngle;
+    }
+
     private void FixedUpdate()
     {
-        direction = (target.position - transform.position).normalized;
+        direction = DistanceEach.normalized;
         if (Distance <= noticeRange)
         {
             if (canAttack)
@@ -43,7 +59,7 @@ public class ThrowEnemy : AIEnemy
 
 
 
-                direction.x = direction.x > 0 ? -1 : direction.x < 0 ? 1 : 0; // 플레이어로부터 도망
+                direction.x = -Mathf.Sign(direction.x); // 플레이어로부터 도망
                 direction.y = 0;
                 rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
                 if (IsRayCasting(transform.position, direction, 3f, ground) && canJump) // 벽을 만나고 점프가 가능한 상황이라면 점프
@@ -64,14 +80,49 @@ public class ThrowEnemy : AIEnemy
         canAttack = false;
 
 
-        // 공격할 방향을 바라보게 설정(디자인이 나오면 채울 부분)
-
-
+        // 공격할 방향을 바라보게 설정 + 공격 애니메이션(디자인이 나오면 채울 부분)
 
 
         Rigidbody2D material;
         Instantiate(throwMaterial, transform.position, Quaternion.identity).TryGetComponent<Rigidbody2D>(out material);
-        material.AddForce(new Vector2(Direction * Distance, 4.9f + (direction.y * 4.9f)), ForceMode2D.Impulse); // 물리 계산 하기
+
+        float realAngle = Mathf.Atan2(DistanceEach.y, Mathf.Abs(DistanceEach.x)) * Mathf.Rad2Deg + (10 * Mathf.Sign(DistanceEach.y));
+
+        Debug.Log(realAngle);
+
+        throwAngle = realAngle <= originalAngle ? originalAngle : realAngle;
+
+        Debug.Log(throwAngle);
+
+        float gravity = Mathf.Abs(Physics2D.gravity.y);
+
+        float x = Mathf.Abs(DistanceEach.x);
+        float y = DistanceEach.y;
+        if (throwAngle < 90)
+        {
+            float radian = throwAngle * Mathf.Deg2Rad;
+
+            float cos = Mathf.Cos(radian);
+            float sin = Mathf.Sin(radian);
+            float tan = Mathf.Tan(radian);
+
+            float squareForce = (gravity * x * x) / (2 * (x * tan - y) * cos * cos);
+
+            float force = Mathf.Sqrt(squareForce);
+
+            Vector2 velocity = new Vector2(force * cos, force * sin);
+
+            velocity.x *= Mathf.Sign(DistanceEach.x);
+
+            material.AddForce(velocity, ForceMode2D.Impulse);
+        }
+        else
+        {
+            float force = Mathf.Sqrt(2 * Distance * gravity);
+
+            material.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
+        }
+
         StartCoroutine(WaitAction.wait(attackSpeedSeconds, () =>
         {
             canAttack = true;
