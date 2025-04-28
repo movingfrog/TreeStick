@@ -55,6 +55,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            canMove = true;
+        }
+    }
+
     void isSliding()
     {
         if(!isGround && isWall && rb.velocity.y < 0)
@@ -66,14 +74,13 @@ public class PlayerController : MonoBehaviour
     void WallJump()
     {
         float walljump = -transform.localScale.x;
-        StartCoroutine(wallJump(walljump * (JumpPower + 5), JumpPower + 1.5f));
+        StartCoroutine(wallJump(walljump * (JumpPower - 2), JumpPower));
         Debug.Log(rb.velocity);
 
         transform.localScale = new Vector3(walljump, 1, 1);
 
         isWall = false;
         canMove = false;
-        StartCoroutine(WaitAction.wait(0.15f, () => canMove = true));
     }
 
     IEnumerator wallJump(float x, float y)
