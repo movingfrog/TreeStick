@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -55,14 +54,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Wall"))
-        {
-            canMove = true;
-        }
-    }
-
     void isSliding()
     {
         if(!isGround && isWall && rb.velocity.y < 0)
@@ -74,23 +65,17 @@ public class PlayerController : MonoBehaviour
     void WallJump()
     {
         float walljump = -transform.localScale.x;
-        StartCoroutine(wallJump(walljump * (JumpPower - 2), JumpPower));
+        float power = JumpPower - 1.5f;
+        rb.velocity = new Vector2(walljump * power, power * 2);
         Debug.Log(rb.velocity);
 
         transform.localScale = new Vector3(walljump, 1, 1);
 
         isWall = false;
         canMove = false;
+        StartCoroutine(WaitAction.wait(0.5f, () => canMove = true));
     }
 
-    IEnumerator wallJump(float x, float y)
-    {
-        for(int i = 0; i < 5; i++)
-        {
-            rb.velocity = new Vector2(x, y) * 1.5f;
-            yield return new WaitForSeconds(0.02f);
-        }
-    }
 
     private void FixedUpdate()
     {
