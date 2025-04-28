@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291359877}
   - component: {fileID: 291359876}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 628104729}
   - component: {fileID: 628104731}
   - component: {fileID: 628104730}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hidden boss flatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,7 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1125473528}
   - component: {fileID: 1125473527}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,7 +1064,7 @@ GameObject:
   - component: {fileID: 1535057434}
   - component: {fileID: 1535057433}
   - component: {fileID: 1535057435}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
