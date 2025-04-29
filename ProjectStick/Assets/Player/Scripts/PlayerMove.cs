@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //벽 점프를 넣을 것이라면 벽과 벽사이를 6칸 뛰어놓아야한다
+    //벽 점프를 넣을 것이라면 벽과 벽사이를 3칸 뛰어놓아야한다
     public void OnJump()
     {
         if(Input.anyKeyDown)

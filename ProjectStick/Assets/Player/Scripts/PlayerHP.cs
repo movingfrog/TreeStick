@@ -1,14 +1,13 @@
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerHP : MonoBehaviour, IDamageAble
+public class PlayerHP : MonoBehaviour, IDamageAble, IHP
 {
     public float HP { get; set; }
-    [SerializeField] float MaxHP;
 
     private void Awake()
     {
-        HP = MaxHP;
+        HP = PlayerManager.PM.MaxHP;
     }
 
     public void GetDamage(float Damage)
@@ -18,6 +17,16 @@ public class PlayerHP : MonoBehaviour, IDamageAble
         {
             isDie();
         }
+    }
+
+    public void HealHP(float H)
+    {
+
+    }
+
+    public void MaxHPUP(float H)
+    {
+
     }
 
     public void isDie()
