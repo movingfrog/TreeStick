@@ -16,10 +16,10 @@ TagManager:
   - Player
   - Ground
   - FakeGround
-  - 
-  - 
-  - 
-  - 
+  - ObstacleForPlayer
+  - ObstacleForEnemy
+  - Obstacle
+  - Enemy
   - 
   - 
   - 
