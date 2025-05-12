@@ -1738,6 +1738,7 @@ GameObject:
   - component: {fileID: 1902527587}
   - component: {fileID: 1902527591}
   - component: {fileID: 1902527592}
+  - component: {fileID: 1902527593}
   m_Layer: 6
   m_Name: BackupPlayer
   m_TagString: Player
@@ -1953,11 +1954,31 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 73e80721-98e2-4b18-b6e0-0468f1470b1a
     m_ActionName: Player/Jump[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5570c07f-9d69-4096-92f1-54de841b7944
+    m_ActionName: Player/Attack[/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1902527593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902527586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7fa586053cf294ebf5673f736cc93f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDelay: 0
+  attackSec: 0
+  distance: {x: 0.75, y: 0.15}
+  attackSize: {x: 0.5, y: 0.5}
 --- !u!1 &1950067612
 GameObject:
   m_ObjectHideFlags: 0
