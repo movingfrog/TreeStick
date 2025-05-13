@@ -18,7 +18,8 @@ public class ThrowSkill1 : MonoBehaviour, IThrowSkill
 
     public void Attack(Transform target = null)
     {
-        direction = (target.position - transform.position).normalized;
+        if (target != null) direction = (target.position - transform.position).normalized;
+        else direction = new Vector2(transform.localScale.x, 0);
         for (int i = 1; i <= throwCount; i++)
         {
             Rigidbody2D material;
