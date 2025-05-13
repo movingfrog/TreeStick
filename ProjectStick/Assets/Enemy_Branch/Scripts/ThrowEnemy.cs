@@ -57,7 +57,7 @@ public class ThrowEnemy : AIEnemy
                     Debug.Log("random : " + random);
                     if (random == 0)
                     {
-                        skill.Attack();
+                        skill.Attack(target);
                     }
                     else
                     {

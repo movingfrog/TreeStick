@@ -15,14 +15,8 @@ public class ThrowSkill1 : MonoBehaviour, IThrowSkill
             return direction.x > 0 ? 1 : direction.x < 0 ? -1 : 0;
         }
     }
-    Transform target;
 
-    void Awake()
-    {
-        target = FindObjectOfType<PlayerController>().transform;
-    }
-
-    public void Attack()
+    public void Attack(Transform target = null)
     {
         direction = (target.position - transform.position).normalized;
         for (int i = 1; i <= throwCount; i++)
