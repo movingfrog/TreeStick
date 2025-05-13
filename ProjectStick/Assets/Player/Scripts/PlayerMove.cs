@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             if (isGround)
             {
                 rb.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
-                Debug.Log("jump");
+                //Debug.Log("jump");
             }
             else
             {
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         isWall = Physics2D.BoxCast(transform.position, bounds.size, 0f, Vector2.right * transform.localScale.x * Direction, Distance, layer);
         isGround = hit.collider != null;
         isSliding();
-        Debug.Log(moveInput);
+        //Debug.Log(moveInput);
     }
 
     private void OnDrawGizmos()

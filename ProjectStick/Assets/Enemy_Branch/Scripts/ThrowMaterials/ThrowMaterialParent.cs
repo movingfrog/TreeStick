@@ -7,10 +7,11 @@ public abstract class ThrowMaterialParent : MonoBehaviour
     public float attackAmount;
     public float boomDamage;
     public float boomRange;
+    public float stayTime = 10f;
 
     private void Start()
     {
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, stayTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

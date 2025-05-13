@@ -50,7 +50,28 @@ public class ThrowEnemy : AIEnemy
         {
             if (canAttack)
             {
-                Attack();
+                canAttack = false;
+                if (TryGetComponent<IThrowSkill>(out IThrowSkill skill))
+                {
+                    int random = Random.Range(0, 3);
+                    Debug.Log("random : " + random);
+                    if (random == 0)
+                    {
+                        skill.Attack();
+                    }
+                    else
+                    {
+                        Attack();
+                    }
+                }
+                else
+                {
+                    Attack();
+                }
+                StartCoroutine(WaitAction.wait(attackSpeedSeconds, () =>
+                {
+                    canAttack = true;
+                }));
                 canMove = true;
             }
             if (canMove)
@@ -77,22 +98,15 @@ public class ThrowEnemy : AIEnemy
 
     protected override void Attack()
     {
-        canAttack = false;
-
-
         // 공격할 방향을 바라보게 설정 + 공격 애니메이션(디자인이 나오면 채울 부분)
-
+        
 
         Rigidbody2D material;
         Instantiate(throwMaterial, transform.position, Quaternion.identity).TryGetComponent<Rigidbody2D>(out material);
 
         float realAngle = Mathf.Atan2(DistanceEach.y, Mathf.Abs(DistanceEach.x)) * Mathf.Rad2Deg + (10 * Mathf.Sign(DistanceEach.y));
 
-        Debug.Log(realAngle);
-
         throwAngle = realAngle <= originalAngle ? originalAngle : realAngle;
-
-        Debug.Log(throwAngle);
 
         float gravity = Mathf.Abs(Physics2D.gravity.y);
 
@@ -122,11 +136,6 @@ public class ThrowEnemy : AIEnemy
 
             material.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
-
-        StartCoroutine(WaitAction.wait(attackSpeedSeconds, () =>
-        {
-            canAttack = true;
-        }));
     }
 
     protected override void Jump()
