@@ -1,14 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public GameObject abliltyItem;
+
     public float attackDelay;
     public float attackSec;
 
     public Vector2 distance;
     public Vector2 attackSize;
 
-    void OnAttack()
+    public void OnAttack()
     {
         if(attackSec >= attackDelay && Input.anyKeyDown)
         {
@@ -19,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     IEnemyDamage Attack = collider.GetComponent<IEnemyDamage>();
                     //Attack.Damage();
+                    Debug.Log("attack");
                     continue;
                 }
                 attackSec = 0;
@@ -27,6 +31,21 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("AbliltyItem"))
+        {
+            abliltyItem = collision.gameObject;
+        }
+    }
+
+    public void OnGetItem()
+    {
+        if (Input.anyKeyDown && abliltyItem != null)
+        {
+            PlayerAblilty.AM.TOA = abliltyItem.GetComponent<AbliltyItem>().abliltyType;
+        }
+    }
     private void Update()
     {
         if(attackSec < attackDelay)

@@ -7,4 +7,8 @@ public interface IHP
     void HealHP(float H);
     void MaxHPUP(float H);
 }
-
+public interface IPlayerSkill
+{
+    public void SkillF();
+    public void SkillS();
+}
