@@ -45,54 +45,57 @@ public class ThrowEnemy : AIEnemy
 
     private void FixedUpdate()
     {
-        direction = DistanceEach.normalized;
-        if (Distance <= noticeRange)
+        if (!isStuned)
         {
-            if (canAttack)
+            direction = DistanceEach.normalized;
+            if (Distance <= noticeRange)
             {
-                canAttack = false;
-                if (TryGetComponent<IThrowSkill>(out IThrowSkill skill))
+                if (canAttack)
                 {
-                    int random = Random.Range(0, 3);
-                    Debug.Log("random : " + random);
-                    if (random == 0)
+                    canAttack = false;
+                    if (TryGetComponent<IThrowSkill>(out IThrowSkill skill))
                     {
-                        skill.Attack(target);
+                        int random = Random.Range(0, 3);
+                        Debug.Log("random : " + random);
+                        if (random == 0)
+                        {
+                            skill.Attack(target);
+                        }
+                        else
+                        {
+                            Attack();
+                        }
                     }
                     else
                     {
                         Attack();
                     }
+                    StartCoroutine(WaitAction.wait(attackSpeedSeconds, () =>
+                    {
+                        canAttack = true;
+                    }));
+                    canMove = true;
                 }
-                else
+                if (canMove)
                 {
-                    Attack();
+                    // 공격 중이 아닐 때만 보는 방향을 이동 방향과 같게 설정(디자인이 나오면 채울 부분)
+
+
+
+                    direction.x = -Mathf.Sign(direction.x); // 플레이어로부터 도망
+                    direction.y = 0;
+                    rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
+                    if (IsRayCasting(transform.position, direction, 3f, ground) && canJump) // 벽을 만나고 점프가 가능한 상황이라면 점프
+                    {
+                        Jump();
+                    }
                 }
-                StartCoroutine(WaitAction.wait(attackSpeedSeconds, () =>
-                {
-                    canAttack = true;
-                }));
-                canMove = true;
             }
-            if (canMove)
+            else
             {
-                // 공격 중이 아닐 때만 보는 방향을 이동 방향과 같게 설정(디자인이 나오면 채울 부분)
-
-
-
-                direction.x = -Mathf.Sign(direction.x); // 플레이어로부터 도망
-                direction.y = 0;
-                rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
-                if (IsRayCasting(transform.position, direction, 3f, ground) && canJump) // 벽을 만나고 점프가 가능한 상황이라면 점프
-                {
-                    Jump();
-                }
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                canMove = false;
             }
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            canMove = false;
         }
     }
 
