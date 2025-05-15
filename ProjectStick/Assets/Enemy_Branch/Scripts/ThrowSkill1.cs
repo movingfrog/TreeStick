@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThrowSkill1 : MonoBehaviour, IThrowSkill
 {
     public int throwCount = 5;
-    public float throwForce = 5;
+    public float throwForce = 10;
     [SerializeField] GameObject throwMaterial;
     Vector2 direction;
     int Direction
@@ -24,7 +24,7 @@ public class ThrowSkill1 : MonoBehaviour, IThrowSkill
         {
             Rigidbody2D material;
             Instantiate(throwMaterial, transform.position, Quaternion.identity).TryGetComponent<Rigidbody2D>(out material);
-            material.AddForce(new Vector2(throwForce * Direction / i, i * throwForce), ForceMode2D.Impulse);
+            material.AddForce(new Vector2(throwForce * Direction * Mathf.Cos((i / (float)throwCount) * 90 * Mathf.Deg2Rad), Mathf.Sin((i / (float)throwCount) * 90 * Mathf.Deg2Rad) * throwForce), ForceMode2D.Impulse);
         }
     }
 }

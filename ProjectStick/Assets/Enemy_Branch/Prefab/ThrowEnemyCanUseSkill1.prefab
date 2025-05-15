@@ -194,5 +194,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwCount: 5
-  throwForce: 5
+  throwForce: 10
   throwMaterial: {fileID: 332235871182514924, guid: 4952e99d53a3b574286139db0ad3368b, type: 3}
