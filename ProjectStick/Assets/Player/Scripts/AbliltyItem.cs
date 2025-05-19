@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class AbliltyItem : MonoBehaviour
 {
-    public TypeOfAblilty abliltyType;
+    public int abliltyType;
 }

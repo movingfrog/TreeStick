@@ -1,18 +1,6 @@
 using System;
 using UnityEngine;
 
-public enum TypeOfAblilty
-{
-    PO,
-    SW,
-    BO,
-    TH,
-    ST,
-    TE,
-    SP,
-    HA,
-}
-
 public class PlayerAblilty : MonoBehaviour
 {
     private static PlayerAblilty AbliltyManager;
@@ -27,7 +15,7 @@ public class PlayerAblilty : MonoBehaviour
             return AbliltyManager;
         }
     }
-    public TypeOfAblilty TOA = TypeOfAblilty.PO;
+    public AbliltyItem abliltyItem;
     [Serializable]
     public struct Ablilty
     {
