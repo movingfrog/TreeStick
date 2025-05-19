@@ -11,29 +11,6 @@ public class ThrowEnemy : AIEnemy
     [SerializeField] float attackSpeedSeconds = 1.5f;
     [SerializeField] float jumpForce = 10f;
     [SerializeField] float throwAngle = 30;
-    float Distance
-    {
-        get
-        {
-            return Vector2.Distance(target.position, transform.position);
-        }
-    }
-    Vector2 direction;
-    int Direction
-    {
-        get
-        {
-            return direction.x > 0 ? 1 : direction.x < 0 ? -1 : 0;
-        }
-    }
-
-    Vector2 DistanceEach
-    {
-        get
-        {
-            return target.position - transform.position;
-        }
-    }
 
     private float originalAngle;
 
@@ -106,6 +83,10 @@ public class ThrowEnemy : AIEnemy
 
         Rigidbody2D material;
         Instantiate(throwMaterial, transform.position, Quaternion.identity).TryGetComponent<Rigidbody2D>(out material);
+
+        material.TryGetComponent<ThrowMaterialParent>(out ThrowMaterialParent temp);
+
+        temp.target = target;
 
         float realAngle = Mathf.Atan2(DistanceEach.y, Mathf.Abs(DistanceEach.x)) * Mathf.Rad2Deg + (10 * Mathf.Sign(DistanceEach.y));
 

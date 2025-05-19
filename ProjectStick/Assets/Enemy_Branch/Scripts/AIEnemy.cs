@@ -9,6 +9,29 @@ public abstract class AIEnemy : Enemy
     protected LayerMask ground;
     protected LayerMask player;
     protected Transform target;
+    protected float Distance
+    {
+        get
+        {
+            return Vector2.Distance(target.position, transform.position);
+        }
+    }
+    protected Vector2 direction;
+    protected int Direction
+    {
+        get
+        {
+            return direction.x > 0 ? 1 : direction.x < 0 ? -1 : 0;
+        }
+    }
+
+    protected Vector2 DistanceEach
+    {
+        get
+        {
+            return target.position - transform.position;
+        }
+    }
 
     protected override void Awake()
     {

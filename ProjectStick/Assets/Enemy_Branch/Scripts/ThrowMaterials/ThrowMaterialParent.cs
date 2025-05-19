@@ -8,13 +8,16 @@ public abstract class ThrowMaterialParent : MonoBehaviour
     public float boomDamage;
     public float boomRange;
     public float stayTime = 10f;
+    public Transform target;
+    protected IDamageAble targetDamage;
 
     private void Start()
     {
+        targetDamage = target.GetComponent<IDamageAble>();
         Destroy(gameObject, stayTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
     }
