@@ -24,7 +24,8 @@ public class ThrowSkill1 : MonoBehaviour, IThrowSkill
         {
             Rigidbody2D material;
             Instantiate(throwMaterial, transform.position, Quaternion.identity).TryGetComponent<Rigidbody2D>(out material);
-            material.AddForce(new Vector2(throwForce * Direction * Mathf.Cos((i / (float)throwCount) * 90 * Mathf.Deg2Rad), Mathf.Sin((i / (float)throwCount) * 90 * Mathf.Deg2Rad) * throwForce), ForceMode2D.Impulse);
+            Vector2 direction = new Vector2(Mathf.Cos((i / (float)throwCount) * 90 * Mathf.Deg2Rad), Mathf.Sin((i / (float)throwCount) * 90 * Mathf.Deg2Rad)).normalized;
+            material.AddForce(new Vector2(throwForce * Direction * direction.x, direction.y * throwForce), ForceMode2D.Impulse);
         }
     }
 }
