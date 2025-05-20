@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.anyKeyDown && abliltyItem != null)
         {
-            PlayerAblilty.AM.TOA = abliltyItem.GetComponent<AbliltyItem>().abliltyType;
+            //PlayerAblilty.AM.TOA = abliltyItem.GetComponent<AbliltyItem>().abliltyType;
         }
     }
     private void Update()
