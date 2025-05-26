@@ -55,11 +55,8 @@ public class ThrowEnemy : AIEnemy
                 }
                 if (canMove)
                 {
-                    // 공격 중이 아닐 때만 보는 방향을 이동 방향과 같게 설정(디자인이 나오면 채울 부분)
-
-
-
                     direction.x = -Mathf.Sign(direction.x); // 플레이어로부터 도망
+                    transform.localScale = new Vector3(direction.x, transform.localScale.y, transform.localScale.z);
                     direction.y = 0;
                     rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
                     if (IsRayCasting(transform.position, direction, 3f, ground) && canJump) // 벽을 만나고 점프가 가능한 상황이라면 점프
@@ -78,8 +75,7 @@ public class ThrowEnemy : AIEnemy
 
     protected override void Attack()
     {
-        // 공격할 방향을 바라보게 설정 + 공격 애니메이션(디자인이 나오면 채울 부분)
-        
+        transform.localScale = new Vector3(Direction, transform.localScale.y, transform.localScale.z);
 
         Rigidbody2D material;
         Instantiate(throwMaterial, transform.position, Quaternion.identity).TryGetComponent<Rigidbody2D>(out material);
