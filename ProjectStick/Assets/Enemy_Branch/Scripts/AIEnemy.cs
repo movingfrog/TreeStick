@@ -8,17 +8,37 @@ public abstract class AIEnemy : Enemy
     public float noticeRange = 10;
     protected LayerMask ground;
     protected LayerMask player;
-    protected Rigidbody2D rb;
     protected Transform target;
-    protected Animator anim;
-
-    protected virtual void Awake()
+    protected float Distance
     {
+        get
+        {
+            return Vector2.Distance(target.position, transform.position);
+        }
+    }
+    protected Vector2 direction;
+    protected int Direction
+    {
+        get
+        {
+            return direction.x > 0 ? 1 : direction.x < 0 ? -1 : 0;
+        }
+    }
+
+    protected Vector2 DistanceEach
+    {
+        get
+        {
+            return target.position - transform.position;
+        }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         ground = LayerMask.GetMask("Ground");
         player = LayerMask.GetMask("Player");
-        rb = GetComponent<Rigidbody2D>();
         target = FindObjectOfType<PlayerController>().transform;
-        TryGetComponent<Animator>(out anim);
     }
 
     protected bool IsRayCasting(Vector2 center, Vector2 direction, float range, LayerMask layer)
