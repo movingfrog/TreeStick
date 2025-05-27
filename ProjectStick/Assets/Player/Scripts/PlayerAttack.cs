@@ -43,7 +43,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.anyKeyDown && abliltyItem != null)
         {
-            PlayerAblilty.AM.abliltyItem = abliltyItem.GetComponent<AbliltyItem>();
+            PlayerAblilty.AM.abliltyItem = abliltyItem.GetComponent<AbliltyItem>(); //플레이어가 아이템을 획득시 아이템의 종류를 저장
+            // 아이템의 부모를 플레이어로 저장 및 비공개 상태로 전환(이후에 다른 아이템을 얻을 때 아이템이 빠지는 기능을 위함)
+            abliltyItem.transform.SetParent(transform);
+            abliltyItem.SetActive(false);
         }
     }
     private void Update()
